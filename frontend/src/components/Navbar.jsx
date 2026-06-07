@@ -197,14 +197,11 @@ const Navbar = () => {
             </>
           ) : (
             <div className="flex items-center gap-2">
-              <Link
-                to="/login"
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-sm font-medium transition-colors hover:bg-slate-100 dark:hover:bg-white/5"
-              >
+              <Link to="/login" className="btn-nav-auth text-sm">
                 <LogIn className="h-4 w-4" />
                 <span>Sign In</span>
               </Link>
-              <Link to="/signup" className="btn-black-outline text-sm">
+              <Link to="/signup" className="btn-nav-auth text-sm">
                 Sign Up
               </Link>
             </div>

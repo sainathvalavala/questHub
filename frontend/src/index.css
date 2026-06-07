@@ -110,11 +110,10 @@
     box-shadow: none;
   }
 
-  /* Transparent Black Button - Becomes Solid on Hover */
-  .btn-black-outline {
+  /* Navbar Auth Buttons - Same Style for Both */
+  .btn-nav-auth {
     background-color: transparent;
-    color: #000000;
-    border: 1px solid #e5e7eb;
+    color: #0f172a;
     padding: 0.625rem 1.25rem;
     border-radius: 0.5rem;
     font-weight: 500;
@@ -124,30 +123,28 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    border: 1px solid transparent;
   }
 
-  .dark .btn-black-outline {
-    color: #ffffff;
-    border-color: #374151;
+  .dark .btn-nav-auth {
+    color: #f1f5f9;
   }
 
-  .btn-black-outline:hover {
+  .btn-nav-auth:hover {
     background-color: #000000;
     color: #ffffff;
-    border-color: #000000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     transform: translateY(-1px);
   }
 
-  .btn-black-outline:active {
+  .btn-nav-auth:active {
     background-color: #000000;
     color: #ffffff;
-    border-color: #000000;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transform: translateY(0);
   }
 
-  .btn-black-outline:focus {
+  .btn-nav-auth:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.4);
   }
