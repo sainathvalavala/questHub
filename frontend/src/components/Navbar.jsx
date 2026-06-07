@@ -77,10 +77,12 @@ const ThemeToggle = () => {
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
+    setIsProfileOpen(false);
   };
 
   return (
@@ -125,30 +127,54 @@ const Navbar = () => {
                 </Link>
               )}
 
-              <Link
-                to="/profile"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-all text-sm"
-              >
-                <User className="h-4 w-4" />
-                <span className="hidden sm:inline font-medium">
-                  {user.username}
-                </span>
-              </Link>
+              {/* Profile Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 dark:bg-white/5 hover:bg-white/10 dark:hover:bg-white/10 transition-all"
+                >
+                  <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gradient-to-br from-violet-500 to-brand-500 text-white text-sm font-bold">
+                    {user.username.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="hidden sm:inline font-medium text-slate-700 dark:text-slate-300">
+                    {user.username}
+                  </span>
+                </button>
 
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors text-sm"
-                title="Logout"
-              >
-                <LogOut className="h-4 w-4" />
-                <span className="hidden md:inline">Sign Out</span>
-              </button>
+                <AnimatePresence>
+                  {isProfileOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      className="absolute right-0 mt-2 w-48 rounded-xl shadow-xl bg-white dark:bg-darkbg-800 border border-slate-200 dark:border-white/10 py-2 z-50"
+                    >
+                      <Link
+                        to="/profile"
+                        onClick={() => setIsProfileOpen(false)}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
+                      >
+                        <User className="h-4 w-4" />
+                        <span>Profile</span>
+                      </Link>
+
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        <span>Sign Out</span>
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </>
           ) : (
             <div className="flex items-center gap-2">
               <Link
                 to="/login"
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-sm font-medium transition-colors"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-sm font-medium transition-all hover:bg-slate-100 dark:hover:bg-white/5"
               >
                 <LogIn className="h-4 w-4" />
                 <span>Sign In</span>
