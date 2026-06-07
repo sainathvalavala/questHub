@@ -109,6 +109,66 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
+## 🌐 Hosting & Deployment Guide
+
+Here are simple, free (or low-cost) options to host your QuestHub app:
+
+### 1. **Database: MongoDB Atlas (Free Forever!)**
+
+MongoDB Atlas is MongoDB's official cloud hosting. They offer a free 512MB cluster:
+
+- Go to [https://www.mongodb.com/atlas](https://www.mongodb.com/atlas)
+- Sign up and create a "Shared Cluster" (free tier)
+- Create a database user, and set your IP whitelist (or allow `0.0.0.0/0` for development)
+- Copy your connection string (will look like `mongodb+srv://...`)
+
+### 2. **Backend: Render.com (Free Tier)**
+
+Render makes it easy to host Node.js/Express apps:
+
+- Go to [https://render.com](https://render.com) and sign up with GitHub
+- Click "New" → "Web Service"
+- Connect your GitHub repo, choose the `backend` directory
+- Add the following environment variables in the Render dashboard:
+  - `MONGO_URI` (your MongoDB Atlas connection string)
+  - `JWT_SECRET` (a long, random string)
+  - `CLOUDINARY_CLOUD_NAME` (your Cloudinary cloud name, or `mock`)
+  - `CLOUDINARY_API_KEY` (your API key, or `mock`)
+  - `CLOUDINARY_API_SECRET` (your API secret, or `mock`)
+- Set the "Start Command" to `npm start`
+- Deploy!
+
+### 3. **Frontend: Vercel or Netlify (Free Forever!)**
+
+Both are great options for React/Vite apps!
+
+**Option A: Vercel**
+
+- Go to [https://vercel.com](https://vercel.com), sign up with GitHub
+- Click "Add New" → "Project" → Import your repo
+- In "Root Directory", choose `frontend`
+- Add an environment variable: `VITE_API_URL` → your Render backend URL (e.g., `https://questhub-backend.onrender.com/api`)
+- Click "Deploy"!
+
+**Option B: Netlify**
+
+- Go to [https://netlify.com](https://netlify.com), sign up with GitHub
+- Click "Add new site" → "Import an existing project"
+- Connect your repo, set build settings:
+  - Base directory: `frontend`
+  - Build command: `npm run build`
+  - Publish directory: `dist`
+- In "Site settings" → "Environment variables", add `VITE_API_URL` → your Render backend URL
+- Deploy!
+
+### 4. **Image Storage: Cloudinary (Free Tier)**
+
+- Go to [https://cloudinary.com](https://cloudinary.com), sign up for free
+- Get your `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` from the dashboard
+- Add these to your backend environment variables!
+
+---
+
 ## 🧪 Running Unit & Integration Tests
 
 The backend includes a comprehensive Jest/Supertest integration suite covering Auth validations and Question CRUD endpoints.
