@@ -117,10 +117,10 @@ const Feed = () => {
         </div>
       </div>
 
-      {/* Main Grid View */}
-      <div className="flex flex-col lg:flex-row gap-8 items-start">
-        {/* Questions list container */}
-        <div className="flex-1 w-full space-y-6">
+      {/* Main Layout - CSS Grid with 3 columns on lg screens */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        {/* Left Column - Subject Filter + First 2 Rows of Cards */}
+        <div className="lg:col-span-2 space-y-6">
           {/* Subject Filter Badge Strip */}
           <div className="flex items-center gap-2 overflow-x-auto pb-3 -mx-4 px-4 md:-mx-0 md:px-0 scrollbar-none">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500 mr-2 flex items-center gap-1">
@@ -142,35 +142,57 @@ const Feed = () => {
             ))}
           </div>
 
-          {/* Feed Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* First 4 Question Cards (2x2 grid) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {loading ? (
-              <SkeletonLoader count={6} />
-            ) : questions.length === 0 ? (
-              <div className="col-span-full py-16 text-center glass-card rounded-2xl p-8">
-                <HelpCircle className="h-12 w-12 text-slate-500 mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-slate-200">
-                  No questions found
-                </h3>
-                <p className="text-slate-400 text-sm mt-1 max-w-sm mx-auto">
-                  We couldn't find any questions matching your filters. Why not
-                  be the first to ask?
-                </p>
-              </div>
-            ) : (
-              questions.map((question, idx) => (
-                <QuestionCard
-                  key={question._id}
-                  question={question}
-                  index={idx}
-                />
-              ))
-            )}
+              <SkeletonLoader count={4} />
+            ) : questions.length > 0 ? (
+              questions
+                .slice(0, 4)
+                .map((question, idx) => (
+                  <QuestionCard
+                    key={question._id}
+                    question={question}
+                    index={idx}
+                  />
+                ))
+            ) : null}
           </div>
         </div>
 
-        {/* Sidebar widgets */}
+        {/* Right Column - Sidebar */}
         <Sidebar />
+
+        {/* Empty State - Spans All Columns */}
+        {!loading && questions.length === 0 && (
+          <div className="lg:col-span-3">
+            <div className="py-16 text-center glass-card rounded-2xl p-8">
+              <HelpCircle className="h-12 w-12 text-slate-500 mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-slate-200">
+                No questions found
+              </h3>
+              <p className="text-slate-400 text-sm mt-1 max-w-sm mx-auto">
+                We couldn't find any questions matching your filters. Why not be
+                the first to ask?
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Bottom Section - Full Width (3 columns) Remaining Cards */}
+        {!loading && questions.length > 4 && (
+          <div className="lg:col-span-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {questions.slice(4).map((question, idx) => (
+                <QuestionCard
+                  key={question._id}
+                  question={question}
+                  index={4 + idx}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
