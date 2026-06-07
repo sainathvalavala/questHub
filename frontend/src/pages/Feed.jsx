@@ -1,20 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import QuestionCard from '../components/QuestionCard';
-import Sidebar from '../components/Sidebar';
-import SkeletonLoader from '../components/SkeletonLoader';
-import { Search, Filter, HelpCircle, CheckCircle, RefreshCcw } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import QuestionCard from "../components/QuestionCard";
+import Sidebar from "../components/Sidebar";
+import SkeletonLoader from "../components/SkeletonLoader";
+import {
+  Search,
+  Filter,
+  HelpCircle,
+  CheckCircle,
+  RefreshCcw,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
-const SUBJECTS = ['All', 'HTML', 'CSS', 'JavaScript', 'React'];
+const SUBJECTS = ["All", "HTML", "CSS", "JavaScript", "React"];
 
 const Feed = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [selectedTag, setSelectedTag] = useState('All');
-  const [statusFilter, setStatusFilter] = useState('all'); // all, unsolved, solved
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [selectedTag, setSelectedTag] = useState("All");
+  const [statusFilter, setStatusFilter] = useState("all"); // all, unsolved, solved
 
   // Handle debouncing for search
   useEffect(() => {
@@ -29,13 +35,13 @@ const Feed = () => {
     try {
       const params = {};
       if (debouncedSearch) params.search = debouncedSearch;
-      if (selectedTag && selectedTag !== 'All') params.tag = selectedTag;
-      if (statusFilter && statusFilter !== 'all') params.status = statusFilter;
+      if (selectedTag && selectedTag !== "All") params.tag = selectedTag;
+      if (statusFilter && statusFilter !== "all") params.status = statusFilter;
 
-      const res = await axios.get('/api/questions', { params });
+      const res = await axios.get("/api/questions", { params });
       setQuestions(res.data);
     } catch (err) {
-      console.error('Failed to load questions:', err);
+      console.error("Failed to load questions:", err);
     } finally {
       setLoading(false);
     }
@@ -61,36 +67,36 @@ const Feed = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          
+
           {/* Status filter selection */}
           <div className="flex gap-2 shrink-0">
             <button
-              onClick={() => setStatusFilter('all')}
+              onClick={() => setStatusFilter("all")}
               className={`px-4 py-3.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 ${
-                statusFilter === 'all'
-                  ? 'bg-brand-600 text-white border-brand-500 shadow-[0_0_15px_rgba(139,92,246,0.2)]'
-                  : 'bg-darkbg-800/80 border-white/5 text-slate-400 hover:text-slate-200'
+                statusFilter === "all"
+                  ? "bg-brand-600 text-white border-brand-500 shadow-[0_0_15px_rgba(139,92,246,0.2)]"
+                  : "bg-darkbg-800/80 border-white/5 text-slate-400 hover:text-slate-200"
               }`}
             >
               All
             </button>
             <button
-              onClick={() => setStatusFilter('unsolved')}
+              onClick={() => setStatusFilter("unsolved")}
               className={`px-4 py-3.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 ${
-                statusFilter === 'unsolved'
-                  ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
-                  : 'bg-darkbg-800/80 border-white/5 text-slate-400 hover:text-slate-200'
+                statusFilter === "unsolved"
+                  ? "bg-amber-500/20 text-amber-400 border-amber-500/30"
+                  : "bg-darkbg-800/80 border-white/5 text-slate-400 hover:text-slate-200"
               }`}
             >
               <HelpCircle className="h-4 w-4" />
               <span className="hidden sm:inline">Unsolved</span>
             </button>
             <button
-              onClick={() => setStatusFilter('solved')}
+              onClick={() => setStatusFilter("solved")}
               className={`px-4 py-3.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 ${
-                statusFilter === 'solved'
-                  ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
-                  : 'bg-darkbg-800/80 border-white/5 text-slate-400 hover:text-slate-200'
+                statusFilter === "solved"
+                  ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+                  : "bg-darkbg-800/80 border-white/5 text-slate-400 hover:text-slate-200"
               }`}
             >
               <CheckCircle className="h-4 w-4" />
@@ -100,7 +106,7 @@ const Feed = () => {
         </div>
 
         <div className="lg:col-span-4 flex items-center justify-between lg:justify-end">
-          <button 
+          <button
             onClick={fetchQuestions}
             className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-brand-400 bg-white/5 border border-white/5 hover:border-brand-500/20 px-4 py-3.5 rounded-xl transition-all"
             title="Refresh feed"
@@ -127,8 +133,8 @@ const Feed = () => {
                 onClick={() => setSelectedTag(subject)}
                 className={`text-xs px-4 py-2 rounded-full border font-bold transition-all shrink-0 ${
                   selectedTag === subject
-                    ? 'bg-brand-500 text-white border-brand-400'
-                    : 'bg-white/5 border-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/10'
+                    ? "bg-brand-500 text-white border-brand-400"
+                    : "bg-white/5 border-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/10"
                 }`}
               >
                 {subject}
@@ -137,20 +143,27 @@ const Feed = () => {
           </div>
 
           {/* Feed Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {loading ? (
-              <SkeletonLoader count={4} />
+              <SkeletonLoader count={6} />
             ) : questions.length === 0 ? (
               <div className="col-span-full py-16 text-center glass-card rounded-2xl p-8">
                 <HelpCircle className="h-12 w-12 text-slate-500 mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-slate-200">No questions found</h3>
+                <h3 className="text-lg font-bold text-slate-200">
+                  No questions found
+                </h3>
                 <p className="text-slate-400 text-sm mt-1 max-w-sm mx-auto">
-                  We couldn't find any questions matching your filters. Why not be the first to ask?
+                  We couldn't find any questions matching your filters. Why not
+                  be the first to ask?
                 </p>
               </div>
             ) : (
               questions.map((question, idx) => (
-                <QuestionCard key={question._id} question={question} index={idx} />
+                <QuestionCard
+                  key={question._id}
+                  question={question}
+                  index={idx}
+                />
               ))
             )}
           </div>
