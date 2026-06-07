@@ -204,7 +204,7 @@ const Navbar = () => {
                 <LogIn className="h-4 w-4" />
                 <span>Sign In</span>
               </Link>
-              <Link to="/signup" className="btn-black text-sm">
+              <Link to="/signup" className="btn-black-outline text-sm">
                 Sign Up
               </Link>
             </div>
