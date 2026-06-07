@@ -26,7 +26,7 @@ app.use('/api/answers', require('./routes/answerRoutes'));
 
 // Root route for API verification
 app.get('/', (req, res) => {
-  res.json({ message: 'Brainly Lite API is running' });
+  res.json({ message: 'QuestHub API is running' });
 });
 
 // Error handling middleware
