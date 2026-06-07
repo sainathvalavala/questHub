@@ -1,32 +1,32 @@
-# Brainly Lite 🎓 (MERN Homework Help & Quiz Platform)
+# QuestHub 🎓 (MERN Homework Help & Q&A Platform)
 
-**Brainly Lite** is a simplified, responsive, and gamified peer-to-peer homework help and Q&A platform built on the MERN stack. Designed specifically as a high-quality portfolio project, it showcases full-stack engineering proficiency, clean folder architecture, database design, API testing, and modern dark-glassmorphic UI aesthetics.
+**QuestHub** is a simplified, responsive, and gamified peer-to-peer homework help and Q&A platform built on the MERN stack. Designed specifically as a high-quality portfolio project, it showcases full-stack engineering proficiency, clean folder architecture, database design, API testing, and modern UI aesthetics with light/dark mode support.
 
 ---
 
 ## 🚀 Key Features
 
-* **Secure Authentication**: Traditional Email & Password registry with password hashing (`bcryptjs`) and stateless session tracking (`jsonwebtoken`).
-* **Points Gamification**:
-  * New signups start with **100 points**.
-  * Posting a question costs **10 points** (incentivizes participation).
-  * Submitting an answer awards **15 points**.
-  * Having your response accepted as the **Best Answer** by the author awards an additional **20 points**!
-  * User rank titles adjust dynamically based on points (e.g. *Knowledge Seeker*, *Peer Mentor*, *Brainly Scholar*, *Grandmaster Mind*).
-* **Question Feed & Subject Badges**: Browse feed items filtered by text searches, solved status, or subject tags (Math, Science, History, Biology, Literature).
-* **Visual Problem Attachments**: Upload textbook figures or handwritten equation images. Integrates **Cloudinary API** with a smart **Local Disk Fallback** if Cloudinary keys are not provided.
-* **Best Answer System**: Askers can mark the best response to their question, locking the thread as "Solved" and rewarding the helper.
-* **Admin Moderation Panel**: Guarded panel allowing accounts with the `admin` role to monitor statistics and delete inappropriate questions directly.
-* **Premium Dark glassmorphism**: Responsive design tailored mobile-first using **Tailwind CSS** and smooth entrance/exit micro-animations via **Framer Motion**.
+- **Dark/Light Theme System**: Toggle between 3 modes: Light, Dark, and System preference. Uses `localStorage` to persist user's theme choice, and has smooth transitions between modes!
+- **Secure Authentication**: Traditional Email & Password registry with password hashing (`bcryptjs`) and stateless session tracking (`jsonwebtoken`).
+- **Points Gamification**:
+  - New signups start with **100 points**.
+  - Posting a question costs **10 points** (incentivizes participation).
+  - Submitting an answer awards **15 points**.
+  - Having your response accepted as the **Best Answer** by the author awards an additional **20 points**!
+- **Question Feed & Subject Badges**: Browse feed items filtered by text searches, solved status, or subject tags (HTML, CSS, JavaScript, React, Node.js, Other).
+- **Visual Problem Attachments**: Upload textbook figures or handwritten equation images. Integrates **Cloudinary API** with a smart **Local Disk Fallback** if Cloudinary keys are not provided.
+- **Best Answer System**: Askers can mark the best response to their question, locking the thread as "Solved" and rewarding the helper.
+- **Admin Moderation Panel**: Guarded panel allowing accounts with the `admin` role to monitor statistics and delete inappropriate questions directly.
+- **Responsive Design**: Mobile-first responsive UI using **Tailwind CSS** and smooth entrance/exit micro-animations via **Framer Motion**.
 
 ---
 
 ## 🛠 Tech Stack
 
-* **Frontend**: React 18 (Vite), React Router v6, Tailwind CSS, Framer Motion, Axios, Lucide React.
-* **Backend**: Node.js, Express.js, Mongoose ODM, Multer, Cloudinary SDK.
-* **Database**: MongoDB (Atlas or Local instance).
-* **Testing**: Jest, Supertest.
+- **Frontend**: React 18 (Vite), React Router v6, Tailwind CSS, Framer Motion, Axios, Lucide React.
+- **Backend**: Node.js, Express.js, Mongoose ODM, Multer, Cloudinary SDK.
+- **Database**: MongoDB (Atlas or Local instance).
+- **Testing**: Jest, Supertest.
 
 ---
 
@@ -48,7 +48,7 @@ quizz/
 ├── frontend/
 │   ├── src/
 │   │   ├── components/    # Navbar, Sidebar, QuestionCard, loaders
-│   │   ├── context/       # Auth state & Points global sync context
+│   │   ├── context/       # Auth state & Theme toggle context
 │   │   ├── pages/         # Feed, Ask, Detail, Profile, Admin, Login/Signup
 │   │   ├── App.jsx        # Routing structure & guards
 │   │   ├── main.jsx
@@ -65,14 +65,19 @@ quizz/
 ## ⚙️ Local Configuration & Setup
 
 ### 1. Database Setup
+
 Ensure you have MongoDB running locally at `mongodb://127.0.0.1:27017/quizz` OR create a free cluster on MongoDB Atlas.
 
 ### 2. Environmental Variables
+
 Create a `.env` file in the `/backend` directory. You can copy the template:
+
 ```bash
 cp backend/.env.example backend/.env
 ```
+
 Fill in the configuration details:
+
 ```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/quizz # Swap with MongoDB Atlas connection if available
@@ -81,19 +86,25 @@ CLOUDINARY_CLOUD_NAME=mock # Set to your Cloudinary name to enable cloud storage
 CLOUDINARY_API_KEY=mock
 CLOUDINARY_API_SECRET=mock
 ```
-*Note: If Cloudinary keys are set to `mock`, the app automatically stores uploads on your local disk in `backend/public/uploads`.*
+
+_Note: If Cloudinary keys are set to `mock`, the app automatically stores uploads on your local disk in `backend/public/uploads`._
 
 ### 3. Installation
+
 From the root directory, install all dependencies for the root, backend, and frontend folders:
+
 ```bash
 npm run install-all
 ```
 
 ### 4. Running the App
+
 Start both the React development server (Vite, port 3000) and the Express API server (port 5000) concurrently:
+
 ```bash
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
@@ -103,6 +114,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 The backend includes a comprehensive Jest/Supertest integration suite covering Auth validations and Question CRUD endpoints.
 
 To run the backend test suite:
+
 ```bash
 npm run test
 ```

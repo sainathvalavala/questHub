@@ -1,7 +1,7 @@
 {
   "name": "quizz-app-root",
   "version": "1.0.0",
-  "description": "Root configuration for Brainly Lite Q&A app",
+  "description": "Root configuration for QuestHub Q&A app",
   "scripts": {
     "install-all": "npm install && npm install --prefix backend && npm install --prefix frontend",
     "backend": "npm run dev --prefix backend",
